@@ -124,6 +124,14 @@ public class EditActivity extends AppCompatActivity
                 if(Integer.parseInt(task.get("status")) == 1){
                     status = true;
                 }
+
+                if(date == null)
+                    date = task.get("date").split(" ")[0];
+
+                if(hours == null)
+                    hours = task.get("date").split(" ")[1];
+
+
                 bdd.updateTask(Integer.parseInt(task.get("id")), editContent.getText().toString(), date+" "+hours, status, inputEdit.getText().toString());
                 startActivity(new Intent(EditActivity.this, MainActivity.class));
                 Snackbar.make(view, "Edit task", Snackbar.LENGTH_LONG)

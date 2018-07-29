@@ -53,11 +53,11 @@ public class TasksBDD {
         return bdd.insert(TABLE, null, values);
     }
 
-    public int updateTask(int id, Task task){
+    public int updateTask(int id, String content){
         //La mise à jour d'un livre dans la BDD fonctionne plus ou moins comme une insertion
         //il faut simplement préciser quel livre on doit mettre à jour grâce à l'ID
         ContentValues values = new ContentValues();
-        values.put(COL_CONTENT, task.getContent());
+        values.put(COL_CONTENT, content);
         return bdd.update(TABLE, values, COL_ID + " = " +id, null);
     }
 
@@ -68,11 +68,16 @@ public class TasksBDD {
 
     public ArrayList<Map<String, String>> getTasks(){
         Cursor c = bdd.rawQuery("SELECT * FROM task", null);
+        return cursorToTasks(c);
+    }
+
+    public Map<String, String>  getTask(int ID){
+        Cursor c = bdd.rawQuery("SELECT * FROM task WHERE ID = "+ID, null);
         return cursorToTask(c);
     }
 
     //Cette méthode permet de convertir un cursor en un livre
-    private ArrayList<Map<String, String>> cursorToTask(Cursor c){
+    private ArrayList<Map<String, String>> cursorToTasks(Cursor c){
         //si aucun élément n'a été retourné dans la requête, on renvoie null
         if (c.getCount() == 0) {
             return new ArrayList<Map<String, String>>();
@@ -89,5 +94,20 @@ public class TasksBDD {
             }
         }
         return array;
+    }
+
+    private Map<String, String> cursorToTask(Cursor c){
+        //si aucun élément n'a été retourné dans la requête, on renvoie null
+        if (c.getCount() == 0) {
+            return new HashMap<>();
+        }
+        Map<String, String> map = new HashMap<String, String>();
+        //Sinon on se place sur le premier élément
+        if(c.moveToFirst()){
+            map.put("id", c.getString( c.getColumnIndex("ID")));
+            map.put("content", c.getString( c.getColumnIndex("content")));
+            c.moveToNext();
+        }
+        return map;
     }
 }

@@ -8,5 +8,24 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_edit">
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add task"
+            android:id="@+id/editTask"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/editTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        />
+
+
 
 </android.support.constraint.ConstraintLayout>

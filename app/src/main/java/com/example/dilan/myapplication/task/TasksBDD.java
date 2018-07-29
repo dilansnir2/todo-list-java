@@ -15,7 +15,7 @@ import java.util.Map;
 public class TasksBDD {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "lists455.db";
+    private static final String DATABASE_NAME = "lists25.db";
 
     private static final String TABLE = "task";
     private static final String COL_ID = "ID";

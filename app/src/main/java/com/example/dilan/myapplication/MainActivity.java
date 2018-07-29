@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         materialBetterSpinner = (MaterialSpinner)findViewById(R.id.material_spinner1);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_dropdown_item_1line, SPINNER_DATA);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         materialBetterSpinner.setAdapter(adapter);
         materialBetterSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
@@ -113,9 +114,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_list) {
-            // Handle the camera action
-        } else if (id == R.id.nav_task) {
+        if (id == R.id.nav_task) {
             startActivity(new Intent(MainActivity.this, TaskActivity.class));
         }
         else if (id == R.id.home){

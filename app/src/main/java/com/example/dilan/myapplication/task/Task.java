@@ -60,9 +60,9 @@ public class Task {
         ArrayList<Map<String, String>> tasksFromBdd;
         System.out.println(filter);
         if(filter == "TODO"){
-            tasksFromBdd = tasksBdd.getTodoTasks();
-        }else if(filter == "DONE") {
             tasksFromBdd = tasksBdd.getDoneTasks();
+        }else if(filter == "DONE") {
+            tasksFromBdd = tasksBdd.getTodoTasks();
         }else{
             tasksFromBdd = tasksBdd.getTasks();
         }

@@ -2,6 +2,7 @@ package com.example.dilan.myapplication;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.dilan.myapplication.task.TaskActivity;
 import com.example.dilan.myapplication.task.TasksBDD;
@@ -35,8 +37,11 @@ public class EditActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView mDisplayDate;
+    private TextView mDisplayHour;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private String date;
+    private TimePickerDialog mTimeSetListener;
+    private String hours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +64,31 @@ public class EditActivity extends AppCompatActivity
         final EditText editContent = (EditText) findViewById(R.id.editContent);
         editContent.setText(task.get("content"));
 
-        mDisplayDate = (TextView) findViewById(R.id.inputEditDate);
-        mDisplayDate.setText(task.get("date"));
+        mDisplayHour = (TextView) findViewById(R.id.inputHour);
+        String hoursFromBdd = task.get("date").split(" ")[1];
+        mDisplayHour.setText(hoursFromBdd);
+        mDisplayHour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int min = cal.get(Calendar.MINUTE);
+                int hour = cal.get(Calendar.HOUR);
+                TimePickerDialog dialog = new TimePickerDialog(EditActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        mDisplayHour.setText(hourOfDay + ":" + minute);
+                        hours = hourOfDay+":"+minute+":"+"00";
+                    }
+                }, hour, min, false );
+                dialog.getWindow();
+                dialog.show();
+            }
+        });
+
+
+        mDisplayDate = (TextView) findViewById(R.id.inputDate);
+        String dateFromBdd = task.get("date").split(" ")[0];
+        mDisplayDate.setText(dateFromBdd);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,12 +97,7 @@ public class EditActivity extends AppCompatActivity
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EditActivity.this,
-                        R.style.Theme_AppCompat_Light_Dialog,
-                        mDateSetListener,
-                        year,month,day
-                );
+                DatePickerDialog dialog = new DatePickerDialog(EditActivity.this, R.style.Theme_AppCompat_Light_Dialog, mDateSetListener, year,month,day );
                 dialog.getWindow();
                 dialog.show();
             }
@@ -101,7 +124,7 @@ public class EditActivity extends AppCompatActivity
                 if(Integer.parseInt(task.get("status")) == 1){
                     status = true;
                 }
-                bdd.updateTask(Integer.parseInt(task.get("id")), editContent.getText().toString(), date, status, inputEdit.getText().toString());
+                bdd.updateTask(Integer.parseInt(task.get("id")), editContent.getText().toString(), date+" "+hours, status, inputEdit.getText().toString());
                 startActivity(new Intent(EditActivity.this, MainActivity.class));
                 Snackbar.make(view, "Edit task", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -127,9 +150,7 @@ public class EditActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_list) {
-            // Handle the camera action
-        } else if (id == R.id.nav_task) {
+        if (id == R.id.nav_task) {
             startActivity(new Intent(EditActivity.this, TaskActivity.class));
         }
         else if (id == R.id.home){

@@ -1,7 +1,10 @@
 package com.example.dilan.myapplication.task;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.dilan.myapplication.MainActivity;
 import com.example.dilan.myapplication.R;
 import com.example.dilan.myapplication.Toolbars;
 
+import java.util.Calendar;
+
 public class TaskActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView mDisplayDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +45,38 @@ public class TaskActivity extends AppCompatActivity
                         String value = mEdit.getText().toString();
                         tasksBDD.open();
                         tasksBDD.insertTask(new Task(0, value));
+                        startActivity(new Intent(TaskActivity.this, MainActivity.class));
                     }
                 }
         );
+
+        mDisplayDate = (TextView) findViewById(R.id.inputDate);
+
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        TaskActivity.this,
+                        R.style.Theme_AppCompat_Light_Dialog,
+                        mDateSetListener,
+                        year,month,day
+                );
+                dialog.getWindow();
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                System.out.println(year+"/"+month+"/"+dayOfMonth);
+            }
+        };
     }
 
     @Override

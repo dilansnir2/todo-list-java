@@ -54,6 +54,7 @@ public class EditActivity extends AppCompatActivity
                 bdd.open();
                 System.out.println(task);
                 bdd.updateTask(Integer.parseInt(task.get("id")), inputEdit.getText().toString());
+                startActivity(new Intent(EditActivity.this, MainActivity.class));
             }
         });
     }

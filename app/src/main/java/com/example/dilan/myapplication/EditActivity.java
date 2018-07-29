@@ -44,6 +44,7 @@ public class EditActivity extends AppCompatActivity
 
         final EditText inputEdit = (EditText) findViewById(R.id.editTask);
         inputEdit.setText(task.get("content"));
+        System.out.println(task);
 
         Button buttonEdit = (Button) findViewById(R.id.editTaskBtn);
         final Context self = this;

@@ -28,7 +28,7 @@ public class TaskActivity extends AppCompatActivity
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
+    private  String date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +37,8 @@ public class TaskActivity extends AppCompatActivity
         Button mbutton = (Button) findViewById(R.id.button);
         final Context self = this;
         final EditText mEdit = (EditText) findViewById(R.id.addTask);
-        mbutton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TasksBDD tasksBDD = new TasksBDD(self);
-                        String value = mEdit.getText().toString();
-                        tasksBDD.open();
-                        tasksBDD.insertTask(new Task(0, value));
-                        startActivity(new Intent(TaskActivity.this, MainActivity.class));
-                    }
-                }
-        );
 
         mDisplayDate = (TextView) findViewById(R.id.inputDate);
-
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,9 +61,24 @@ public class TaskActivity extends AppCompatActivity
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                System.out.println(year+"/"+month+"/"+dayOfMonth);
+                date = month+"/"+month+"/"+year;
+                mDisplayDate.setText(date);
+
             }
         };
+
+        mbutton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TasksBDD tasksBDD = new TasksBDD(self);
+                        String value = mEdit.getText().toString();
+                        tasksBDD.open();
+                        tasksBDD.insertTask(new Task(0, value, date));
+                        startActivity(new Intent(TaskActivity.this, MainActivity.class));
+                    }
+                }
+        );
     }
 
     @Override

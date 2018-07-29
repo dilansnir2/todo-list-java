@@ -11,14 +11,16 @@ import java.util.Map;
 public class Task {
     private int ID;
     private String content;
+    private String date;
 
     public Task(){
 
     }
 
-    public Task(int id , String content){
+    public Task(int id , String content, String date){
         this.ID = id;
         this.content = content;
+        this.date = date;
     }
 
     public String getContent(){
@@ -26,6 +28,14 @@ public class Task {
     }
     public void setContent(String content){
         this.content = content;
+    }
+
+    public String getDate(){
+        return this.date;
+    }
+
+    public void setDate(String date){
+        this.date = date;
     }
 
     public int getID(){
@@ -42,7 +52,7 @@ public class Task {
         tasksBdd.open();
         ArrayList<Map<String, String>> tasksFromBdd = tasksBdd.getTasks();
         for (int i = 0; i < tasksFromBdd.size(); i++) {
-            tasks.add(new MyObject(tasksFromBdd.get(i).get("content"), tasksFromBdd.get(i).get("id")));
+            tasks.add(new MyObject(tasksFromBdd.get(i).get("content"), tasksFromBdd.get(i).get("id"), tasksFromBdd.get(i).get("date")));
         }
         return tasks;
     }

@@ -22,6 +22,7 @@ import net.steamcrafted.materialiconlib.MaterialIconView;
 public class MyViewHolder extends   RecyclerView.ViewHolder{
 
     private TextView textView;
+    private TextView dateView;
     private MaterialIconView deleteIcon;
     private MaterialIconView editIcon;
     private RecyclerView recyclerView;
@@ -29,13 +30,14 @@ public class MyViewHolder extends   RecyclerView.ViewHolder{
     public MyViewHolder(View itemView){
         super(itemView);
         textView = itemView.findViewById(R.id.text);
+        dateView = itemView.findViewById(R.id.dateView);
         deleteIcon = itemView.findViewById(R.id.iconDelete);
         editIcon = itemView.findViewById(R.id.iconEdit);
     }
 
     public void bind(final MyObject myObject, final MyAdapter.OnItemClickListener listener,  final MainActivity self){
         textView.setText(myObject.getText());
-
+        dateView.setText(myObject.getDate());
         deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

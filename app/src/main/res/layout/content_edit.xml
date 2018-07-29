@@ -20,26 +20,42 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Add task"
-                android:id="@+id/editTask"
+                android:hint="Edit Title"
+                android:id="@+id/editTitle"
                 />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:layout_marginTop="175dp"
         >
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <Button
-            android:id="@+id/editTaskBtn"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit content"
+                android:id="@+id/editContent"
+                />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="2dp"
+        android:paddingTop="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit task"
-            android:layout_marginTop="150dp"
-            />
+            android:id="@+id/inputEditDate"
+            android:text="Choice date"
+            >
+        </TextView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

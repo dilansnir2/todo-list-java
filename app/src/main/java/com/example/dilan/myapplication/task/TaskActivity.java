@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ public class TaskActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView mDisplayDate;
+    private TextView mContent;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private  String date;
     @Override
@@ -34,9 +37,10 @@ public class TaskActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         Toolbars.show(this);
-        Button mbutton = (Button) findViewById(R.id.button);
+
         final Context self = this;
-        final EditText mEdit = (EditText) findViewById(R.id.addTask);
+        final EditText mEdit = (EditText) findViewById(R.id.addTitle);
+        final EditText mContent = (EditText) findViewById(R.id.addContent);
 
         mDisplayDate = (TextView) findViewById(R.id.inputDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -61,24 +65,26 @@ public class TaskActivity extends AppCompatActivity
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date = month+"/"+month+"/"+year;
+                date = month+"/"+dayOfMonth+"/"+year;
                 mDisplayDate.setText(date);
 
             }
         };
 
-        mbutton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TasksBDD tasksBDD = new TasksBDD(self);
-                        String value = mEdit.getText().toString();
-                        tasksBDD.open();
-                        tasksBDD.insertTask(new Task(0, value, date));
-                        startActivity(new Intent(TaskActivity.this, MainActivity.class));
-                    }
-                }
-        );
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TasksBDD tasksBDD = new TasksBDD(self);
+                String value = mEdit.getText().toString();
+                tasksBDD.open();
+                tasksBDD.insertTask(new Task(0, mContent.getText().toString(), date, false, value));
+                startActivity(new Intent(TaskActivity.this, MainActivity.class));
+                Snackbar.make(view, "One task added", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
     }
 
     @Override

@@ -10,9 +10,11 @@ public class MyDBHandler extends SQLiteOpenHelper{
     private static final String COLUMN_ID = "ID";
     private static final String COLUMN_CONTENT = "content";
     private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_STATUS = "status";
+    private static final String COLUMN_TITLE = "title";
 
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_NAME + " ("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DATE + " DATE," + COLUMN_CONTENT + " TEXT );";
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " VARCHAR(55),"  + COLUMN_STATUS + " BOOLEAN," + COLUMN_DATE + " DATE," + COLUMN_CONTENT + " TEXT );";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

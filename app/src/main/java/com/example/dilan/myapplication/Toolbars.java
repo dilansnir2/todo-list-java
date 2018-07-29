@@ -15,15 +15,6 @@ public class Toolbars {
         Toolbar toolbar = (Toolbar) appCompatActivity.findViewById(R.id.toolbar);
         appCompatActivity.setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) appCompatActivity.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) appCompatActivity.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 appCompatActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

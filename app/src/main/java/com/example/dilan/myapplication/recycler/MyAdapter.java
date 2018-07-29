@@ -1,10 +1,12 @@
 package com.example.dilan.myapplication.recycler;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dilan.myapplication.MainActivity;
 import com.example.dilan.myapplication.R;
 import com.example.dilan.myapplication.recycler.MyObject;
 import com.example.dilan.myapplication.recycler.MyViewHolder;
@@ -16,10 +18,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     List<MyObject> list;
 
     private final OnItemClickListener listener;
+    private final MainActivity self;
 
-    public MyAdapter(List<MyObject> list, OnItemClickListener listener) {
+    public MyAdapter(List<MyObject> list, OnItemClickListener listener, final MainActivity self) {
         this.list = list;
         this.listener = listener;
+        this.self = self;
     }
 
     public interface OnItemClickListener {
@@ -38,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
-        myViewHolder.bind(list.get(position), listener);
+        myViewHolder.bind(list.get(position), listener, this.self);
     }
 
     @Override

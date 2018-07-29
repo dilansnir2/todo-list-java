@@ -2,18 +2,18 @@ package com.example.dilan.myapplication.recycler;
 
 public class MyObject {
     private String text;
-    private String imageUrl;
+    private String id;
 
-    public MyObject(String text, String imageUrl){
+    public MyObject(String text, String id){
         this.text = text;
-        this.imageUrl = imageUrl;
+        this.id = id;
     }
 
     public String getText(){
         return this.text;
     }
 
-    public String getImageUrl(){
-        return this.imageUrl;
+    public String getId(){
+        return this.id;
     }
 }

@@ -10,11 +10,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.dilan.myapplication.recycler.MyAdapter;
 import com.example.dilan.myapplication.recycler.MyObject;
 import com.example.dilan.myapplication.task.Task;
 import com.example.dilan.myapplication.task.TaskActivity;
+import com.example.dilan.myapplication.task.TasksBDD;
+
+import net.steamcrafted.materialiconlib.MaterialIconView;
 
 public class MainActivity extends AppCompatActivity
 
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(MyObject object) {
                 Log.d("ok",object.getText());
             }
-        }));
+        }, this));
     }
 
     @Override
@@ -79,4 +84,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.dilan.myapplication.MyDBHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TasksBDD {
@@ -64,22 +66,25 @@ public class TasksBDD {
         return bdd.delete(TABLE, COL_ID + " = " +id, null);
     }
 
-    public ArrayList<String> getTasks(){
+    public ArrayList<Map<String, String>> getTasks(){
         Cursor c = bdd.rawQuery("SELECT * FROM task", null);
         return cursorToTask(c);
     }
 
     //Cette méthode permet de convertir un cursor en un livre
-    private ArrayList<String> cursorToTask(Cursor c){
+    private ArrayList<Map<String, String>> cursorToTask(Cursor c){
         //si aucun élément n'a été retourné dans la requête, on renvoie null
         if (c.getCount() == 0) {
-            return new ArrayList<String>();
+            return new ArrayList<Map<String, String>>();
         }
-        ArrayList<String> array = new ArrayList<String>();
+        ArrayList<Map<String, String>> array = new ArrayList<Map<String, String>>();
         //Sinon on se place sur le premier élément
         if(c.moveToFirst()){
             while( !c.isAfterLast()){
-                array.add( c.getString( c.getColumnIndex("content")));
+                Map<String, String> task = new HashMap<String, String>();
+                task.put("id", c.getString( c.getColumnIndex("ID")));
+                task.put("content", c.getString( c.getColumnIndex("content")));
+                array.add(task);
                 c.moveToNext();
             }
         }

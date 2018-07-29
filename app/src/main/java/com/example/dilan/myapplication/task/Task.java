@@ -6,6 +6,7 @@ import com.example.dilan.myapplication.recycler.MyObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Task {
     private int ID;
@@ -39,9 +40,9 @@ public class Task {
         List<MyObject> tasks = new ArrayList<>();
         TasksBDD tasksBdd = new TasksBDD(context);
         tasksBdd.open();
-        ArrayList<String> tasksFromBdd = tasksBdd.getTasks();
+        ArrayList<Map<String, String>> tasksFromBdd = tasksBdd.getTasks();
         for (int i = 0; i < tasksFromBdd.size(); i++) {
-            tasks.add(new MyObject(tasksFromBdd.get(i), ""));
+            tasks.add(new MyObject(tasksFromBdd.get(i).get("content"), tasksFromBdd.get(i).get("id")));
         }
         return tasks;
     }
